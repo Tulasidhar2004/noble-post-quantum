@@ -1,5 +1,5 @@
 {
-  "name": "@tulasidhar2004/post-quantum",
+  "name": "@tulasidhar/post-quantum",
   "version": "0.3.2",
   "description": "Auditable & minimal JS implementation of post-quantum public-key cryptography: FIPS 203, 204, 205",
   "files": [
