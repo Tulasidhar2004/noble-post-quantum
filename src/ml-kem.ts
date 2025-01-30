@@ -286,6 +286,7 @@ function createKyber(opts: KyberOpts) {
     publicKeyLen,
     msgLen,
     keygen: (seed = randomBytes(64)) => {
+      console.log("hey this is key gen logic")
       ensureBytes(seed, 64);
       const { publicKey, secretKey: sk } = KPKE.keygen(seed.subarray(0, 32));
       const publicKeyHash = HASH256(publicKey);
@@ -318,6 +319,7 @@ function createKyber(opts: KyberOpts) {
       ensureBytes(cipherText, cipherTextLen); // 32(du*k + dv)
       const [sk, publicKey, publicKeyHash, z] = secretCoder.decode(secretKey);
       const msg = KPKE.decrypt(cipherText, sk);
+      console.log("this is the decrypted message:",new TextDecoder().decode(msg));
       const kr = HASH512.create().update(msg).update(publicKeyHash).digest(); // derive randomness, Khat, rHat = G(mHat || h)
       const Khat = kr.subarray(0, 32);
       const cipherText2 = KPKE.encrypt(publicKey, msg, kr.subarray(32, 64)); // re-encrypt using the derived randomness
